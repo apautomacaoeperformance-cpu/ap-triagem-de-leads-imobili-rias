@@ -35,12 +35,10 @@ function LeadDetail() {
   const navigate = useNavigate();
   const [params] = useParams();
   // useState para forçar re-render se nada mudar
-  const [lead, setLead] = useState(() => getLead(id));
+  const [lead, setLead] = useState<Lead | undefined>(() => getLead(id));
 
   useEffect(() => {
-    const l = getLead(id);
-    if (!l) throw notFound();
-    setLead(l);
+    setLead(getLead(id));
   }, [id]);
 
   const result = useMemo(
@@ -48,7 +46,22 @@ function LeadDetail() {
     [lead, params],
   );
 
-  if (!lead || !result) return null;
+  if (!lead || !result) {
+    return (
+      <div className="mx-auto max-w-3xl px-6 py-20 text-center">
+        <h1 className="text-2xl font-semibold">Lead não encontrado</h1>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Este lead pode ter sido removido ou ainda não foi salvo neste navegador.
+        </p>
+        <Link
+          to="/"
+          className="mt-6 inline-flex rounded-md bg-brand-primary px-4 py-2 text-sm font-medium text-primary-foreground"
+        >
+          Voltar ao dashboard
+        </Link>
+      </div>
+    );
+  }
 
   function handleDelete() {
     if (!confirm("Excluir este lead?")) return;
