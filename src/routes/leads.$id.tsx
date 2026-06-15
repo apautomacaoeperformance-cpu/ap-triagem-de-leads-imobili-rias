@@ -1,7 +1,7 @@
-import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { calculate } from "@/lib/calculator";
-import { deleteLead, getLead, useParams } from "@/lib/store";
+import { deleteLead, getLead, useParams, type Lead } from "@/lib/store";
 import { ResultPanel } from "@/components/result-panel";
 import { BRL } from "@/lib/format";
 
