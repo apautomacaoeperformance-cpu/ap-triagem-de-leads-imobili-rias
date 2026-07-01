@@ -123,47 +123,58 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
-function AppHeader() {
+function AppSidebar() {
+  const navLink =
+    "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-surface hover:text-foreground [&.active]:bg-brand-primary-soft [&.active]:text-brand-primary";
   return (
-    <header className="sticky top-0 z-10 border-b border-border bg-background/80 backdrop-blur">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
-        <div className="flex items-center gap-8">
-          <Link to="/" className="flex items-center gap-2">
-            <span className="inline-block size-2.5 rounded-sm bg-brand-primary" />
-            <span className="font-semibold tracking-tight text-brand-primary">
-              QualifiMob
-            </span>
-          </Link>
-          <nav className="hidden items-center gap-6 md:flex">
-            <Link
-              to="/"
-              activeOptions={{ exact: true }}
-              className="text-sm font-medium text-muted-foreground hover:text-foreground [&.active]:text-foreground"
-            >
-              Dashboard
-            </Link>
-            <Link
-              to="/leads/new"
-              className="text-sm font-medium text-muted-foreground hover:text-foreground [&.active]:text-foreground"
-            >
-              Nova triagem
-            </Link>
-            <Link
-              to="/settings"
-              className="text-sm font-medium text-muted-foreground hover:text-foreground [&.active]:text-foreground"
-            >
-              Configurações
-            </Link>
-          </nav>
-        </div>
+    <aside className="sticky top-0 hidden h-screen w-60 shrink-0 flex-col border-r border-border bg-background/80 backdrop-blur md:flex">
+      <div className="flex h-16 items-center px-6">
+        <Link to="/" className="flex items-center gap-2">
+          <span className="inline-block size-2.5 rounded-sm bg-brand-primary" />
+          <span className="font-semibold tracking-tight text-brand-primary">
+            QualifiMob
+          </span>
+        </Link>
+      </div>
+      <nav className="flex flex-1 flex-col gap-1 px-3">
+        <Link to="/" activeOptions={{ exact: true }} className={navLink}>
+          <span className="inline-block size-1.5 rounded-full bg-current opacity-60" />
+          Dashboard
+        </Link>
+        <Link to="/leads/new" className={navLink}>
+          <span className="inline-block size-1.5 rounded-full bg-current opacity-60" />
+          Nova triagem
+        </Link>
+        <Link to="/settings" className={navLink}>
+          <span className="inline-block size-1.5 rounded-full bg-current opacity-60" />
+          Configurações
+        </Link>
+      </nav>
+      <div className="p-3">
         <Link
           to="/leads/new"
-          className="inline-flex items-center gap-2 rounded-md bg-brand-primary px-3 py-2 text-sm font-medium text-primary-foreground ring-1 ring-brand-primary transition-opacity hover:opacity-90"
+          className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-brand-primary px-3 py-2 text-sm font-medium text-primary-foreground ring-1 ring-brand-primary transition-opacity hover:opacity-90"
         >
           <span className="inline-block size-2 rounded-full bg-primary-foreground/70" />
           Novo lead
         </Link>
       </div>
+    </aside>
+  );
+}
+
+function MobileTopbar() {
+  return (
+    <header className="sticky top-0 z-10 flex h-14 items-center justify-between border-b border-border bg-background/80 px-4 backdrop-blur md:hidden">
+      <Link to="/" className="flex items-center gap-2">
+        <span className="inline-block size-2.5 rounded-sm bg-brand-primary" />
+        <span className="font-semibold tracking-tight text-brand-primary">QualifiMob</span>
+      </Link>
+      <nav className="flex items-center gap-3 text-xs font-medium text-muted-foreground">
+        <Link to="/" activeOptions={{ exact: true }} className="[&.active]:text-foreground">Dashboard</Link>
+        <Link to="/leads/new" className="[&.active]:text-foreground">Nova</Link>
+        <Link to="/settings" className="[&.active]:text-foreground">Config</Link>
+      </nav>
     </header>
   );
 }
@@ -217,12 +228,15 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="flex min-h-screen flex-col">
-        <AppHeader />
-        <main className="flex-1">
-          <Outlet />
-        </main>
-        <AppFooter />
+      <div className="flex min-h-screen">
+        <AppSidebar />
+        <div className="flex min-w-0 flex-1 flex-col">
+          <MobileTopbar />
+          <main className="flex-1">
+            <Outlet />
+          </main>
+          <AppFooter />
+        </div>
       </div>
     </QueryClientProvider>
   );
