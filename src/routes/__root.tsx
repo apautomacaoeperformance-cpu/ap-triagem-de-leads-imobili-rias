@@ -83,6 +83,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content:
           "Triagem de leads para imobiliárias: capacidade de financiamento, imóvel máximo e plano de ação em minutos.",
       },
+      { property: "og:title", content: "QualifiMob — Pré-qualificação de crédito imobiliário" },
+      { name: "twitter:title", content: "QualifiMob — Pré-qualificação de crédito imobiliário" },
+      { name: "description", content: "App for real estate agencies to pre-qualify buyer credit for financing." },
+      { property: "og:description", content: "App for real estate agencies to pre-qualify buyer credit for financing." },
+      { name: "twitter:description", content: "App for real estate agencies to pre-qualify buyer credit for financing." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/b26df01c-85e2-443d-a713-2f1aa34ef408/id-preview-019daf0f--b2d6fd78-2771-412d-829d-0b347f44636d.lovable.app-1781549535354.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/b26df01c-85e2-443d-a713-2f1aa34ef408/id-preview-019daf0f--b2d6fd78-2771-412d-829d-0b347f44636d.lovable.app-1781549535354.png" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:type", content: "website" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
